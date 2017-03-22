@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ScrollableNumberPicker.iml" filepath="$PROJECT_DIR$/ScrollableNumberPicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sample-mobile/sample-mobile.iml" filepath="$PROJECT_DIR$/sample-mobile/sample-mobile.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sample-tv/sample-tv.iml" filepath="$PROJECT_DIR$/sample-tv/sample-tv.iml" />
+    </modules>
+  </component>
+</project>
