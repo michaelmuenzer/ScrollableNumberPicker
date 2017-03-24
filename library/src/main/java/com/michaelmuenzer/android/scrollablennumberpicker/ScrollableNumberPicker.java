@@ -1,16 +1,17 @@
 package com.michaelmuenzer.android.scrollablennumberpicker;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Handler;
 import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,16 +19,16 @@ public class ScrollableNumberPicker extends LinearLayout {
     private final static int MIN_UPDATE_INTERVAL_MS = 50;
 
     @DrawableRes
-    private int downIcon = R.drawable.ic_arrow_down_24dp;
+    private int downIcon = R.drawable.ic_arrow_down;
 
     @DrawableRes
-    private int upIcon = R.drawable.ic_arrow_up_24dp;
+    private int upIcon = R.drawable.ic_arrow_up;
 
     @DrawableRes
-    private int leftIcon = R.drawable.ic_arrow_left_24dp;
+    private int leftIcon = R.drawable.ic_arrow_left;
 
     @DrawableRes
-    private int rightIcon = R.drawable.ic_arrow_right_24dp;
+    private int rightIcon = R.drawable.ic_arrow_right;
 
     private int mValue;
     private int mMaxValue;
@@ -35,9 +36,10 @@ public class ScrollableNumberPicker extends LinearLayout {
     private int mStepSize;
     private int mUpdateIntervalMillis;
     private int mOrientation;
+    private ColorStateList mButtonColorStateList;
 
-    private Button mMinusButton;
-    private Button mPlusButton;
+    private AppCompatButton mMinusButton;
+    private AppCompatButton mPlusButton;
     private TextView mValueTextView;
 
     private boolean mAutoIncrement;
@@ -97,7 +99,8 @@ public class ScrollableNumberPicker extends LinearLayout {
         mValue = typedArray.getInt(R.styleable.ScrollableNumberPicker_snp_value,
             res.getInteger(R.integer.default_value));
 
-        //android:background="@drawable/number_picker_selector"
+        mButtonColorStateList = ContextCompat.getColorStateList(context, typedArray.getResourceId(R.styleable.ScrollableNumberPicker_snp_buttonBackgroundTintSelector, R.color.btn_tint_selector));
+
         typedArray.recycle();
 
         initViews();
@@ -118,15 +121,23 @@ public class ScrollableNumberPicker extends LinearLayout {
     }
 
     private void initButtonPlus() {
-        mPlusButton = (Button) findViewById(R.id.button_plus);
+        if (mOrientation == LinearLayout.VERTICAL) {
+            mPlusButton = (AppCompatButton) findViewById(R.id.button_first);
+            mPlusButton.setBackground(ContextCompat.getDrawable(getContext(), upIcon));
+        } else if (mOrientation == LinearLayout.HORIZONTAL) {
+            mPlusButton = (AppCompatButton) findViewById(R.id.button_last);
+            mPlusButton.setBackground(ContextCompat.getDrawable(getContext(), rightIcon));
+        }
 
-        mPlusButton.setOnClickListener(new View.OnClickListener() {
+        mPlusButton.setSupportBackgroundTintList(mButtonColorStateList);
+
+        mPlusButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 increment();
             }
         });
 
-        mPlusButton.setOnLongClickListener(new View.OnLongClickListener() {
+        mPlusButton.setOnLongClickListener(new OnLongClickListener() {
             public boolean onLongClick(View v) {
                 mAutoIncrement = true;
                 mUpdateIntervalHandler.post(new RepeatRunnable());
@@ -134,7 +145,7 @@ public class ScrollableNumberPicker extends LinearLayout {
             }
         });
 
-        mPlusButton.setOnTouchListener(new View.OnTouchListener() {
+        mPlusButton.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP && mAutoIncrement) {
                     mAutoIncrement = false;
@@ -142,16 +153,18 @@ public class ScrollableNumberPicker extends LinearLayout {
                 return false;
             }
         });
-
-        if (mOrientation == LinearLayout.VERTICAL) {
-            mPlusButton.setBackground(ContextCompat.getDrawable(getContext(), upIcon));
-        } else if (mOrientation == LinearLayout.HORIZONTAL) {
-            mPlusButton.setBackground(ContextCompat.getDrawable(getContext(), rightIcon));
-        }
     }
 
     private void initButtonMinus() {
-        mMinusButton = (Button) findViewById(R.id.button_minus);
+        if (mOrientation == LinearLayout.VERTICAL) {
+            mMinusButton = (AppCompatButton) findViewById(R.id.button_last);
+            mMinusButton.setBackground(ContextCompat.getDrawable(getContext(), downIcon));
+        } else if (mOrientation == LinearLayout.HORIZONTAL) {
+            mMinusButton = (AppCompatButton) findViewById(R.id.button_first);
+            mMinusButton.setBackground(ContextCompat.getDrawable(getContext(), leftIcon));
+        }
+
+        mMinusButton.setSupportBackgroundTintList(mButtonColorStateList);
 
         mMinusButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -175,19 +188,13 @@ public class ScrollableNumberPicker extends LinearLayout {
                 return false;
             }
         });
-
-        if (mOrientation == LinearLayout.VERTICAL) {
-            mMinusButton.setBackground(ContextCompat.getDrawable(getContext(), downIcon));
-        } else if (mOrientation == LinearLayout.HORIZONTAL) {
-            mMinusButton.setBackground(ContextCompat.getDrawable(getContext(), leftIcon));
-        }
     }
 
-    public Button getButtonMinusView() {
+    public AppCompatButton getButtonMinusView() {
         return mMinusButton;
     }
 
-    public Button getButtonPlusView() {
+    public AppCompatButton getButtonPlusView() {
         return mPlusButton;
     }
 

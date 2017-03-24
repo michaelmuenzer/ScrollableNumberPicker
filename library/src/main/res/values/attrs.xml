@@ -5,6 +5,7 @@
         <attr name="snp_upIcon" format="integer"/>
         <attr name="snp_leftIcon" format="integer"/>
         <attr name="snp_rightIcon" format="integer"/>
+        <attr name="snp_buttonBackgroundTintSelector" format="integer"/>
         <attr name="snp_maxNumber" format="integer"/>
         <attr name="snp_minNumber" format="integer"/>
         <attr name="snp_stepSize" format="integer"/>
