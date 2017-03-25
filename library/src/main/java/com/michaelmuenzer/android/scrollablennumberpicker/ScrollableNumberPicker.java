@@ -45,6 +45,7 @@ public class ScrollableNumberPicker extends LinearLayout {
     private boolean mAutoIncrement;
     private boolean mAutoDecrement;
 
+    private Context mContext;
     private Handler mUpdateIntervalHandler;
 
     private ScrollablelNumberPickerListener mListener;
@@ -68,6 +69,8 @@ public class ScrollableNumberPicker extends LinearLayout {
         if (isInEditMode()) {
             return;
         }
+
+        mContext = context;
 
         LayoutInflater layoutInflater =
             (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
