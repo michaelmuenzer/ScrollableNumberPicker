@@ -7,46 +7,80 @@
     android:layout_height="match_parent" android:orientation="vertical"
     tools:context="com.michaelmuenzer.android.scrollablenumberpicker.sample.MainActivity">
 
-    <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
-        android:id="@+id/number_picker_vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/number_picker_bg_color"
-        android:paddingEnd="8dp"
-        android:paddingStart="8dp"
-        app:snp_maxNumber="10"
-        app:snp_minNumber="1"
-        app:snp_orientation="vertical"
-        app:snp_stepSize="1"
-        app:snp_value="5"/>
+    <LinearLayout android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:gravity="center_vertical"
+                  android:orientation="horizontal">
 
-    <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
-        android:id="@+id/number_picker_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/number_picker_bg_color"
-        android:paddingEnd="8dp"
-        android:paddingStart="8dp"
-        app:snp_maxNumber="1000"
-        app:snp_minNumber="10"
-        app:snp_orientation="horizontal"
-        app:snp_stepSize="5"
-        app:snp_updateInterval="10"
-        app:snp_value="10"/>
+        <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+            android:id="@+id/number_picker_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/number_picker_bg_color"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            app:snp_buttonTouchScaleFactor="0.8"
+            app:snp_maxNumber="10"
+            app:snp_minNumber="1"
+            app:snp_orientation="vertical"
+            app:snp_stepSize="1"
+            app:snp_value="5"/>
 
-    <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
-        android:id="@+id/number_picker_horizontal_icons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:snp_leftIcon="@drawable/ic_flight_land_black_24dp"
-        app:snp_maxNumber="1000"
-        app:snp_minNumber="10"
-        app:snp_orientation="horizontal"
-        app:snp_rightIcon="@drawable/ic_flight_takeoff_black_24dp"
-        app:snp_stepSize="5"
-        app:snp_updateInterval="10"
-        app:snp_value="10"/>
+        <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+            android:id="@+id/number_picker_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/number_picker_bg_color"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            app:snp_maxNumber="1000"
+            app:snp_minNumber="10"
+            app:snp_orientation="horizontal"
+            app:snp_stepSize="5"
+            app:snp_updateInterval="100"
+            app:snp_value="10"/>
+    </LinearLayout>
 
+    <LinearLayout android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:gravity="center_vertical"
+                  android:orientation="horizontal">
+
+        <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+            android:id="@+id/number_picker_vertical_icons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/number_picker_bg_color"
+            app:snp_buttonBackgroundTintSelector="@color/btn_tint_selector_main"
+            app:snp_buttonIconDown="@drawable/arrow_down_bold_circle_outline"
+            app:snp_maxNumber="10000"
+            app:snp_minNumber="10"
+            app:snp_orientation="vertical"
+            app:snp_stepSize="100"
+            app:snp_buttonIconUp="@drawable/arrow_up_bold_circle_outline"
+            app:snp_updateInterval="10"
+            app:snp_value="10"/>
+        <!-- TODO Fixed width & height -->
+        <!-- Scroll number into field -->
+
+        <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+            android:id="@+id/number_picker_horizontal_icons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:snp_buttonBackgroundTintSelector="@color/btn_tint_selector_main"
+            app:snp_buttonTouchScaleFactor="0.5"
+            app:snp_buttonIconLeft="@drawable/btn_left_selector_main"
+            app:snp_maxNumber="1000"
+            app:snp_minNumber="10"
+            app:snp_orientation="horizontal"
+            app:snp_buttonIconRight="@drawable/btn_right_selector_main"
+            app:snp_stepSize="10"
+            app:snp_updateInterval="50"
+            app:snp_value="10"/>
+
+    </LinearLayout>
 </LinearLayout>

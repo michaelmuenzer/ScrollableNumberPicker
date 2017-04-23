@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
        xmlns:tools="http://schemas.android.com/tools">
-    <android.support.v7.widget.AppCompatButton
+    <ImageView
         android:id="@+id/button_first"
-        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="24dp"
-        android:minWidth="24dp"/>
+        android:scaleType="center"/>
 
     <TextView
         android:id="@+id/text_value"
@@ -17,12 +15,10 @@
         android:gravity="center"
         tools:text="0"/>
 
-    <android.support.v7.widget.AppCompatButton
+    <ImageView
         android:id="@+id/button_last"
-        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="24dp"
-        android:minWidth="24dp"
-        android:tint="@color/btn_tint_selector"/>
+        android:layout_gravity="center"
+        android:scaleType="centerInside"/>
 </merge>

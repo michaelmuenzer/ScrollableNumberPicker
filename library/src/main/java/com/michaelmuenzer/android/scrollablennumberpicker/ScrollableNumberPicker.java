@@ -4,14 +4,20 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.InsetDrawable;
 import android.os.Handler;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.AppCompatButton;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -35,11 +41,12 @@ public class ScrollableNumberPicker extends LinearLayout {
     private int mMinValue;
     private int mStepSize;
     private int mUpdateIntervalMillis;
+    private float mButtonTouchScaleFactor;
     private int mOrientation;
     private ColorStateList mButtonColorStateList;
 
-    private AppCompatButton mMinusButton;
-    private AppCompatButton mPlusButton;
+    private ImageView mMinusButton;
+    private ImageView mPlusButton;
     private TextView mValueTextView;
 
     private boolean mAutoIncrement;
@@ -80,10 +87,10 @@ public class ScrollableNumberPicker extends LinearLayout {
             context.obtainStyledAttributes(attrs, R.styleable.ScrollableNumberPicker);
         Resources res = getResources();
 
-        downIcon = typedArray.getResourceId(R.styleable.ScrollableNumberPicker_snp_downIcon, downIcon);
-        upIcon = typedArray.getResourceId(R.styleable.ScrollableNumberPicker_snp_upIcon, upIcon);
-        leftIcon = typedArray.getResourceId(R.styleable.ScrollableNumberPicker_snp_leftIcon, leftIcon);
-        rightIcon = typedArray.getResourceId(R.styleable.ScrollableNumberPicker_snp_rightIcon, rightIcon);
+        downIcon = typedArray.getResourceId(R.styleable.ScrollableNumberPicker_snp_buttonIconDown, downIcon);
+        upIcon = typedArray.getResourceId(R.styleable.ScrollableNumberPicker_snp_buttonIconUp, upIcon);
+        leftIcon = typedArray.getResourceId(R.styleable.ScrollableNumberPicker_snp_buttonIconLeft, leftIcon);
+        rightIcon = typedArray.getResourceId(R.styleable.ScrollableNumberPicker_snp_buttonIconRight, rightIcon);
 
         mMinValue = typedArray.getInt(R.styleable.ScrollableNumberPicker_snp_minNumber,
             res.getInteger(R.integer.default_minValue));
@@ -93,7 +100,7 @@ public class ScrollableNumberPicker extends LinearLayout {
         mStepSize = typedArray.getInt(R.styleable.ScrollableNumberPicker_snp_stepSize,
             res.getInteger(R.integer.default_stepSize));
 
-        mUpdateIntervalMillis = typedArray.getInt(R.styleable.ScrollableNumberPicker_snp_repeatDelay,
+        mUpdateIntervalMillis = typedArray.getInt(R.styleable.ScrollableNumberPicker_snp_updateInterval,
             res.getInteger(R.integer.default_updateInterval));
 
         mOrientation = typedArray.getInt(R.styleable.ScrollableNumberPicker_snp_orientation,
@@ -103,6 +110,11 @@ public class ScrollableNumberPicker extends LinearLayout {
             res.getInteger(R.integer.default_value));
 
         mButtonColorStateList = ContextCompat.getColorStateList(context, typedArray.getResourceId(R.styleable.ScrollableNumberPicker_snp_buttonBackgroundTintSelector, R.color.btn_tint_selector));
+
+        TypedValue outValue = new TypedValue();
+        res.getValue(R.dimen.default_button_scale_factor, outValue, true);
+        float defaultValue = outValue.getFloat();
+        mButtonTouchScaleFactor = typedArray.getFloat(R.styleable.ScrollableNumberPicker_snp_buttonTouchScaleFactor, defaultValue);
 
         typedArray.recycle();
 
@@ -117,22 +129,20 @@ public class ScrollableNumberPicker extends LinearLayout {
 
     private void initViews() {
         mValueTextView = (TextView) findViewById(R.id.text_value);
+
         setOrientation(mOrientation);
+        if (mOrientation == HORIZONTAL) {
+            setGravity(Gravity.CENTER_VERTICAL);
+        } else {
+            setGravity(Gravity.CENTER_HORIZONTAL);
+        }
 
         initButtonPlus();
         initButtonMinus();
     }
 
     private void initButtonPlus() {
-        if (mOrientation == LinearLayout.VERTICAL) {
-            mPlusButton = (AppCompatButton) findViewById(R.id.button_first);
-            mPlusButton.setBackground(ContextCompat.getDrawable(getContext(), upIcon));
-        } else if (mOrientation == LinearLayout.HORIZONTAL) {
-            mPlusButton = (AppCompatButton) findViewById(R.id.button_last);
-            mPlusButton.setBackground(ContextCompat.getDrawable(getContext(), rightIcon));
-        }
-
-        mPlusButton.setSupportBackgroundTintList(mButtonColorStateList);
+        setButtonPlusImage();
 
         mPlusButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
@@ -150,24 +160,59 @@ public class ScrollableNumberPicker extends LinearLayout {
 
         mPlusButton.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP && mAutoIncrement) {
-                    mAutoIncrement = false;
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    scaleImageViewDrawable(mPlusButton, mButtonTouchScaleFactor);
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (mAutoIncrement) {
+                        mAutoIncrement = false;
+                    }
+
+                    setButtonPlusImage();
                 }
+
                 return false;
             }
         });
     }
 
-    private void initButtonMinus() {
+    private void setButtonPlusImage() {
         if (mOrientation == LinearLayout.VERTICAL) {
-            mMinusButton = (AppCompatButton) findViewById(R.id.button_last);
-            mMinusButton.setBackground(ContextCompat.getDrawable(getContext(), downIcon));
+            mPlusButton = (ImageView) findViewById(R.id.button_first);
+            mPlusButton.setImageResource(upIcon);
         } else if (mOrientation == LinearLayout.HORIZONTAL) {
-            mMinusButton = (AppCompatButton) findViewById(R.id.button_first);
-            mMinusButton.setBackground(ContextCompat.getDrawable(getContext(), leftIcon));
+            mPlusButton = (ImageView) findViewById(R.id.button_last);
+            mPlusButton.setImageResource(rightIcon);
         }
 
-        mMinusButton.setSupportBackgroundTintList(mButtonColorStateList);
+        tintButton(mPlusButton, mButtonColorStateList);
+    }
+
+    private void scaleImageViewDrawable(ImageView view, float scaleFactor) {
+        Drawable drawable = view.getDrawable();
+        int currentWidth = drawable.getIntrinsicWidth();
+        int currentHeight = drawable.getIntrinsicHeight();
+        int newWidth = (int) (currentWidth * scaleFactor);
+        int newHeight = (int) (currentHeight * scaleFactor);
+
+        drawable.setBounds(0, 0, newWidth, newHeight);
+
+        if (newWidth < currentWidth && newHeight < currentHeight) {
+            int insetWidth = (currentWidth - newWidth) / 2;
+            int insetHeight = (currentHeight - newHeight) / 2;
+            InsetDrawable insetDrawable = new InsetDrawable(drawable, insetWidth, insetHeight, insetWidth, insetHeight);
+
+            view.setImageDrawable(insetDrawable);
+        }
+    }
+
+    private void tintButton(@NonNull ImageView button, ColorStateList colorStateList) {
+        Drawable drawable = DrawableCompat.wrap(button.getDrawable());
+        DrawableCompat.setTintList(drawable, colorStateList);
+        button.setImageDrawable(drawable);
+    }
+
+    private void initButtonMinus() {
+        setButtonMinusImage();
 
         mMinusButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -185,19 +230,38 @@ public class ScrollableNumberPicker extends LinearLayout {
 
         mMinusButton.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP && mAutoDecrement) {
-                    mAutoDecrement = false;
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    scaleImageViewDrawable(mMinusButton, mButtonTouchScaleFactor);
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (mAutoDecrement) {
+                        mAutoDecrement = false;
+                    }
+
+                    setButtonMinusImage();
                 }
+
                 return false;
             }
         });
     }
 
-    public AppCompatButton getButtonMinusView() {
+    private void setButtonMinusImage() {
+        if (mOrientation == LinearLayout.VERTICAL) {
+            mMinusButton = (ImageView) findViewById(R.id.button_last);
+            mMinusButton.setImageResource(downIcon);
+        } else if (mOrientation == LinearLayout.HORIZONTAL) {
+            mMinusButton = (ImageView) findViewById(R.id.button_first);
+            mMinusButton.setImageResource(leftIcon);
+        }
+
+        tintButton(mMinusButton, mButtonColorStateList);
+    }
+
+    public ImageView getButtonMinusView() {
         return mMinusButton;
     }
 
-    public AppCompatButton getButtonPlusView() {
+    public ImageView getButtonPlusView() {
         return mPlusButton;
     }
 

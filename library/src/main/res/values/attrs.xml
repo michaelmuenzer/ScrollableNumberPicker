@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="ScrollableNumberPicker">
-        <attr name="snp_downIcon" format="integer"/>
-        <attr name="snp_upIcon" format="integer"/>
-        <attr name="snp_leftIcon" format="integer"/>
-        <attr name="snp_rightIcon" format="integer"/>
+        <attr name="snp_buttonIconDown" format="integer"/>
+        <attr name="snp_buttonIconUp" format="integer"/>
+        <attr name="snp_buttonIconLeft" format="integer"/>
+        <attr name="snp_buttonIconRight" format="integer"/>
         <attr name="snp_buttonBackgroundTintSelector" format="integer"/>
+        <attr name="snp_buttonTouchScaleFactor" format="float"/>
+
+        <attr name="snp_value" format="integer"/>
         <attr name="snp_maxNumber" format="integer"/>
         <attr name="snp_minNumber" format="integer"/>
         <attr name="snp_stepSize" format="integer"/>
-        <attr name="snp_repeatDelay" format="integer"/>
         <attr name="snp_updateInterval" format="integer"/>
-        <attr name="snp_value" format="integer"/>
+
         <attr name="snp_orientation">
             <enum name="horizontal" value="0"/>
             <enum name="vertical" value="1"/>

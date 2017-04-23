@@ -13,7 +13,7 @@ android {
     lintOptions {
         disable 'RestrictedApi'
     }
-    
+
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 25
@@ -29,7 +29,7 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:25.3.0'
+    compile 'com.android.support:appcompat-v7:25.3.1'
 }
 
 apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'

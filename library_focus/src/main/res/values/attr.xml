@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <declare-styleable name="ScrollableNumberPicker">
-        <attr name="snp_maxNumber" format="integer" />
-        <attr name="snp_minNumber" format="integer" />
-    </declare-styleable>
-</resources>
