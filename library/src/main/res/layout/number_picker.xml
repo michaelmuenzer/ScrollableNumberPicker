@@ -22,5 +22,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:contentDescription="@string/desc_button_decrease"
-        android:scaleType="centerInside"/>
+        android:scaleType="center"/>
 </merge>

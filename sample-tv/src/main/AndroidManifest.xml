@@ -6,8 +6,16 @@
                  android:fullBackupContent="@xml/backup_descriptor"
                  android:icon="@mipmap/ic_launcher"
                  android:label="@string/app_name"
-                 android:supportsRtl="true" android:theme="@style/Theme.Leanback"
+                 android:supportsRtl="true"
+                 android:theme="@style/Theme.Leanback"
                  tools:ignore="GoogleAppIndexingWarning">
 
+        <activity android:name=".sample.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
     </application>
 </manifest>

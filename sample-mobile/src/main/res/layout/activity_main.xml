@@ -64,7 +64,6 @@
             app:snp_updateInterval="10"
             app:snp_value="10"/>
         <!-- TODO Fixed width & height -->
-        <!-- Scroll number into field -->
 
         <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
             android:id="@+id/number_picker_horizontal_icons"

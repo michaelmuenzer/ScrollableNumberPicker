@@ -14,12 +14,18 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import static android.view.KeyEvent.KEYCODE_DPAD_DOWN;
+import static android.view.KeyEvent.KEYCODE_DPAD_LEFT;
+import static android.view.KeyEvent.KEYCODE_DPAD_RIGHT;
+import static android.view.KeyEvent.KEYCODE_DPAD_UP;
 
 public class ScrollableNumberPicker extends LinearLayout {
     private final static int MIN_UPDATE_INTERVAL_MS = 50;
@@ -362,6 +368,62 @@ public class ScrollableNumberPicker extends LinearLayout {
     @SuppressWarnings("unused")
     public void setListener(ScrollableNumberPickerListener listener) {
         mListener = listener;
+    }
+
+    //TODO: Refactor code-duplication
+    public boolean handleKeyEvent(int keyCode, KeyEvent event) {
+        int eventAction = event.getAction();
+        if (eventAction == KeyEvent.ACTION_DOWN) {
+            if (mOrientation == HORIZONTAL) {
+                if (keyCode == KEYCODE_DPAD_LEFT) {
+                    if (event.getRepeatCount() == 0) {
+                        scaleImageViewDrawable(mMinusButton, mButtonTouchScaleFactor);
+                    }
+                    decrement();
+                    return true;
+                } else if (keyCode == KEYCODE_DPAD_RIGHT) {
+                    if (event.getRepeatCount() == 0) {
+                        scaleImageViewDrawable(mPlusButton, mButtonTouchScaleFactor);
+                    }
+                    increment();
+                    return true;
+                }
+            } else {
+                if (keyCode == KEYCODE_DPAD_UP) {
+                    if (event.getRepeatCount() == 0) {
+                        scaleImageViewDrawable(mPlusButton, mButtonTouchScaleFactor);
+                    }
+                    increment();
+                    return true;
+                } else if (keyCode == KEYCODE_DPAD_DOWN) {
+                    if (event.getRepeatCount() == 0) {
+                        scaleImageViewDrawable(mMinusButton, mButtonTouchScaleFactor);
+                    }
+                    decrement();
+                    return true;
+                }
+            }
+        } else if (eventAction == KeyEvent.ACTION_UP) {
+            if (mOrientation == HORIZONTAL) {
+                if (keyCode == KEYCODE_DPAD_LEFT) {
+                    setButtonMinusImage();
+                    return true;
+                } else if (keyCode == KEYCODE_DPAD_RIGHT) {
+                    setButtonPlusImage();
+                    return true;
+                }
+            } else {
+                if (keyCode == KEYCODE_DPAD_UP) {
+                    setButtonPlusImage();
+                    return true;
+                } else if (keyCode == KEYCODE_DPAD_DOWN) {
+                    setButtonMinusImage();
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private class RepeatRunnable implements Runnable {
