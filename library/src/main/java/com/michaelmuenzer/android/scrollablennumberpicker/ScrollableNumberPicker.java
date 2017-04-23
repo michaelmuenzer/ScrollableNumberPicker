@@ -52,10 +52,9 @@ public class ScrollableNumberPicker extends LinearLayout {
     private boolean mAutoIncrement;
     private boolean mAutoDecrement;
 
-    private Context mContext;
     private Handler mUpdateIntervalHandler;
 
-    private ScrollablelNumberPickerListener mListener;
+    private ScrollableNumberPickerListener mListener;
 
     public ScrollableNumberPicker(Context context) {
         super(context);
@@ -76,8 +75,6 @@ public class ScrollableNumberPicker extends LinearLayout {
         if (isInEditMode()) {
             return;
         }
-
-        mContext = context;
 
         LayoutInflater layoutInflater =
             (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -177,10 +174,10 @@ public class ScrollableNumberPicker extends LinearLayout {
 
     private void setButtonPlusImage() {
         if (mOrientation == LinearLayout.VERTICAL) {
-            mPlusButton = (ImageView) findViewById(R.id.button_first);
+            mPlusButton = (ImageView) findViewById(R.id.button_increase);
             mPlusButton.setImageResource(upIcon);
         } else if (mOrientation == LinearLayout.HORIZONTAL) {
-            mPlusButton = (ImageView) findViewById(R.id.button_last);
+            mPlusButton = (ImageView) findViewById(R.id.button_decrease);
             mPlusButton.setImageResource(rightIcon);
         }
 
@@ -247,44 +244,49 @@ public class ScrollableNumberPicker extends LinearLayout {
 
     private void setButtonMinusImage() {
         if (mOrientation == LinearLayout.VERTICAL) {
-            mMinusButton = (ImageView) findViewById(R.id.button_last);
+            mMinusButton = (ImageView) findViewById(R.id.button_decrease);
             mMinusButton.setImageResource(downIcon);
         } else if (mOrientation == LinearLayout.HORIZONTAL) {
-            mMinusButton = (ImageView) findViewById(R.id.button_first);
+            mMinusButton = (ImageView) findViewById(R.id.button_increase);
             mMinusButton.setImageResource(leftIcon);
         }
 
         tintButton(mMinusButton, mButtonColorStateList);
     }
 
+    @SuppressWarnings("unused")
     public ImageView getButtonMinusView() {
         return mMinusButton;
     }
 
+    @SuppressWarnings("unused")
     public ImageView getButtonPlusView() {
         return mPlusButton;
     }
 
+    @SuppressWarnings("unused")
     public TextView getTextValueView() {
         return mValueTextView;
     }
 
-    public void increment() {
+    private void increment() {
         if (mValue < mMaxValue) {
             setValue(mValue + mStepSize);
         }
     }
 
-    public void decrement() {
+    private void decrement() {
         if (mValue > mMinValue) {
             setValue(mValue - mStepSize);
         }
     }
 
+    @SuppressWarnings("unused")
     public int getValue() {
         return mValue;
     }
 
+    @SuppressWarnings("WeakerAccess")
     public void setValue(int value) {
         if (value > mMaxValue) {
             value = mMaxValue;
@@ -305,10 +307,12 @@ public class ScrollableNumberPicker extends LinearLayout {
         }
     }
 
+    @SuppressWarnings("unused")
     public int getMaxValue() {
         return mMaxValue;
     }
 
+    @SuppressWarnings("unused")
     public void setMaxValue(int maxValue) {
         mMaxValue = maxValue;
         if (maxValue < mValue) {
@@ -317,10 +321,12 @@ public class ScrollableNumberPicker extends LinearLayout {
         }
     }
 
+    @SuppressWarnings("unused")
     public int getMinValue() {
         return mMinValue;
     }
 
+    @SuppressWarnings("unused")
     public void setMinValue(int minValue) {
         mMinValue = minValue;
         if (minValue > mValue) {
@@ -329,18 +335,22 @@ public class ScrollableNumberPicker extends LinearLayout {
         }
     }
 
+    @SuppressWarnings("unused")
     public int getStepSize() {
         return mStepSize;
     }
 
+    @SuppressWarnings("unused")
     public void setStepSize(int stepSize) {
         mStepSize = stepSize;
     }
 
+    @SuppressWarnings("unused")
     public long getOnLongPressUpdateInterval() {
         return mUpdateIntervalMillis;
     }
 
+    @SuppressWarnings("unused")
     public void setOnLongPressUpdateInterval(int intervalMillis) {
         if (intervalMillis < MIN_UPDATE_INTERVAL_MS) {
             intervalMillis = MIN_UPDATE_INTERVAL_MS;
@@ -349,7 +359,8 @@ public class ScrollableNumberPicker extends LinearLayout {
         mUpdateIntervalMillis = intervalMillis;
     }
 
-    public void setListener(ScrollablelNumberPickerListener listener) {
+    @SuppressWarnings("unused")
+    public void setListener(ScrollableNumberPickerListener listener) {
         mListener = listener;
     }
 

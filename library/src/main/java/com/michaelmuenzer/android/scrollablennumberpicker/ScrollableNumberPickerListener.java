@@ -1,5 +1,6 @@
 package com.michaelmuenzer.android.scrollablennumberpicker;
 
-public interface ScrollablelNumberPickerListener {
+@SuppressWarnings("unused")
+interface ScrollableNumberPickerListener {
     void onNumberPicked(int value);
 }
