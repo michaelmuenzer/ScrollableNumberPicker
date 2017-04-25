@@ -9,8 +9,8 @@
         <attr name="snp_buttonTouchScaleFactor" format="float"/>
 
         <attr name="snp_value" format="integer"/>
-        <attr name="snp_maxNumber" format="integer"/>
-        <attr name="snp_minNumber" format="integer"/>
+        <attr name="snp_maxValue" format="integer"/>
+        <attr name="snp_minValue" format="integer"/>
         <attr name="snp_stepSize" format="integer"/>
         <attr name="snp_updateInterval" format="integer"/>
 
@@ -18,5 +18,8 @@
             <enum name="horizontal" value="0"/>
             <enum name="vertical" value="1"/>
         </attr>
+
+        <attr name="snp_valueMarginStart" format="dimension"/>
+        <attr name="snp_valueMarginEnd" format="dimension"/>
     </declare-styleable>
 </resources>

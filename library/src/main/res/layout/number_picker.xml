@@ -5,22 +5,17 @@
         android:id="@+id/button_increase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/desc_button_increase"
-        android:scaleType="center"/>
+        android:contentDescription="@string/desc_button_increase"/>
 
     <TextView
         android:id="@+id/text_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
         tools:text="0"/>
 
     <ImageView
         android:id="@+id/button_decrease"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:contentDescription="@string/desc_button_decrease"
-        android:scaleType="center"/>
+        android:contentDescription="@string/desc_button_decrease"/>
 </merge>

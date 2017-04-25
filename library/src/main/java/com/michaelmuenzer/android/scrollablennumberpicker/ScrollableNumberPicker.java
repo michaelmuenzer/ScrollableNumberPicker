@@ -50,6 +50,8 @@ public class ScrollableNumberPicker extends LinearLayout {
     private float mButtonTouchScaleFactor;
     private int mOrientation;
     private ColorStateList mButtonColorStateList;
+    private int mValueMarginStart;
+    private int mValueMarginEnd;
 
     private ImageView mMinusButton;
     private ImageView mPlusButton;
@@ -95,9 +97,9 @@ public class ScrollableNumberPicker extends LinearLayout {
         leftIcon = typedArray.getResourceId(R.styleable.ScrollableNumberPicker_snp_buttonIconLeft, leftIcon);
         rightIcon = typedArray.getResourceId(R.styleable.ScrollableNumberPicker_snp_buttonIconRight, rightIcon);
 
-        mMinValue = typedArray.getInt(R.styleable.ScrollableNumberPicker_snp_minNumber,
+        mMinValue = typedArray.getInt(R.styleable.ScrollableNumberPicker_snp_minValue,
             res.getInteger(R.integer.default_minValue));
-        mMaxValue = typedArray.getInt(R.styleable.ScrollableNumberPicker_snp_maxNumber,
+        mMaxValue = typedArray.getInt(R.styleable.ScrollableNumberPicker_snp_maxValue,
             res.getInteger(R.integer.default_maxValue));
 
         mStepSize = typedArray.getInt(R.styleable.ScrollableNumberPicker_snp_stepSize,
@@ -113,6 +115,9 @@ public class ScrollableNumberPicker extends LinearLayout {
             res.getInteger(R.integer.default_value));
 
         mButtonColorStateList = ContextCompat.getColorStateList(context, typedArray.getResourceId(R.styleable.ScrollableNumberPicker_snp_buttonBackgroundTintSelector, R.color.btn_tint_selector));
+
+        mValueMarginStart = (int) typedArray.getDimension(R.styleable.ScrollableNumberPicker_snp_valueMarginStart, res.getDimension(R.dimen.default_value_margin_start));
+        mValueMarginEnd = (int) typedArray.getDimension(R.styleable.ScrollableNumberPicker_snp_valueMarginStart, res.getDimension(R.dimen.default_value_margin_end));
 
         TypedValue outValue = new TypedValue();
         res.getValue(R.dimen.default_button_scale_factor, outValue, true);
@@ -132,13 +137,16 @@ public class ScrollableNumberPicker extends LinearLayout {
 
     private void initViews() {
         mValueTextView = (TextView) findViewById(R.id.text_value);
+        LinearLayout.LayoutParams layoutParams = (LayoutParams) mValueTextView.getLayoutParams();
+        if (mOrientation == HORIZONTAL) {
+            layoutParams.setMargins(mValueMarginStart, 0, mValueMarginEnd, 0);
+        } else {
+            layoutParams.setMargins(0, mValueMarginStart, 0, mValueMarginEnd);
+        }
+        mValueTextView.setLayoutParams(layoutParams);
 
         setOrientation(mOrientation);
-        if (mOrientation == HORIZONTAL) {
-            setGravity(Gravity.CENTER_VERTICAL);
-        } else {
-            setGravity(Gravity.CENTER_HORIZONTAL);
-        }
+        setGravity(Gravity.CENTER);
 
         initButtonPlus();
         initButtonMinus();

@@ -21,8 +21,8 @@
             android:paddingEnd="8dp"
             android:paddingStart="8dp"
             app:snp_buttonTouchScaleFactor="0.8"
-            app:snp_maxNumber="10"
-            app:snp_minNumber="1"
+            app:snp_maxValue="10"
+            app:snp_minValue="1"
             app:snp_orientation="vertical"
             app:snp_stepSize="1"
             app:snp_value="5"/>
@@ -35,8 +35,8 @@
             android:background="@drawable/number_picker_bg_color"
             android:paddingEnd="8dp"
             android:paddingStart="8dp"
-            app:snp_maxNumber="1000"
-            app:snp_minNumber="10"
+            app:snp_maxValue="1000"
+            app:snp_minValue="10"
             app:snp_orientation="horizontal"
             app:snp_stepSize="5"
             app:snp_updateInterval="100"
@@ -50,20 +50,21 @@
 
         <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
             android:id="@+id/number_picker_vertical_icons"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="45dp"
+            android:layout_height="100dp"
             android:layout_margin="10dp"
             android:background="@drawable/number_picker_bg_color"
             app:snp_buttonBackgroundTintSelector="@color/btn_tint_selector_main"
             app:snp_buttonIconDown="@drawable/arrow_down_bold_circle_outline"
-            app:snp_maxNumber="10000"
-            app:snp_minNumber="10"
+            app:snp_buttonIconUp="@drawable/arrow_up_bold_circle_outline"
+            app:snp_maxValue="10000"
+            app:snp_minValue="10"
             app:snp_orientation="vertical"
             app:snp_stepSize="100"
-            app:snp_buttonIconUp="@drawable/arrow_up_bold_circle_outline"
             app:snp_updateInterval="10"
-            app:snp_value="10"/>
-        <!-- TODO Fixed width & height -->
+            app:snp_value="10"
+            app:snp_valueMarginEnd="8dp"
+            app:snp_valueMarginStart="8dp"/>
 
         <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
             android:id="@+id/number_picker_horizontal_icons"
@@ -71,15 +72,17 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             app:snp_buttonBackgroundTintSelector="@color/btn_tint_selector_main"
-            app:snp_buttonTouchScaleFactor="0.5"
             app:snp_buttonIconLeft="@drawable/btn_left_selector_main"
-            app:snp_maxNumber="1000"
-            app:snp_minNumber="10"
-            app:snp_orientation="horizontal"
             app:snp_buttonIconRight="@drawable/btn_right_selector_main"
+            app:snp_buttonTouchScaleFactor="0.5"
+            app:snp_maxValue="1000"
+            app:snp_minValue="10"
+            app:snp_orientation="horizontal"
             app:snp_stepSize="10"
             app:snp_updateInterval="50"
-            app:snp_value="10"/>
+            app:snp_value="10"
+            app:snp_valueMarginEnd="5dp"
+            app:snp_valueMarginStart="5dp"/>
 
     </LinearLayout>
 </LinearLayout>
