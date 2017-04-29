@@ -2,7 +2,10 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.michaelmuenzer.android.scrollablenumberpicker">
 
+    <uses-feature android:name="android.software.leanback" android:required="false"/>
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false"/>
     <application android:allowBackup="true"
+                 android:banner="@drawable/banner"
                  android:fullBackupContent="@xml/backup_descriptor"
                  android:icon="@mipmap/ic_launcher"
                  android:label="@string/app_name"
@@ -15,6 +18,8 @@
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
+
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
             </intent-filter>
         </activity>
     </application>

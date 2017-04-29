@@ -28,7 +28,7 @@
     <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
         android:id="@+id/number_picker_horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_margin="10dp"
         android:background="@drawable/number_picker_selector"
         android:focusable="true"

@@ -5,7 +5,6 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.InsetDrawable;
 import android.os.Handler;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
@@ -18,6 +17,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -186,42 +186,6 @@ public class ScrollableNumberPicker extends LinearLayout {
         });
     }
 
-    private void setButtonPlusImage() {
-        if (mOrientation == LinearLayout.VERTICAL) {
-            mPlusButton = (ImageView) findViewById(R.id.button_increase);
-            mPlusButton.setImageResource(upIcon);
-        } else if (mOrientation == LinearLayout.HORIZONTAL) {
-            mPlusButton = (ImageView) findViewById(R.id.button_decrease);
-            mPlusButton.setImageResource(rightIcon);
-        }
-
-        tintButton(mPlusButton, mButtonColorStateList);
-    }
-
-    private void scaleImageViewDrawable(ImageView view, float scaleFactor) {
-        Drawable drawable = view.getDrawable();
-        int currentWidth = drawable.getIntrinsicWidth();
-        int currentHeight = drawable.getIntrinsicHeight();
-        int newWidth = (int) (currentWidth * scaleFactor);
-        int newHeight = (int) (currentHeight * scaleFactor);
-
-        drawable.setBounds(0, 0, newWidth, newHeight);
-
-        if (newWidth < currentWidth && newHeight < currentHeight) {
-            int insetWidth = (currentWidth - newWidth) / 2;
-            int insetHeight = (currentHeight - newHeight) / 2;
-            InsetDrawable insetDrawable = new InsetDrawable(drawable, insetWidth, insetHeight, insetWidth, insetHeight);
-
-            view.setImageDrawable(insetDrawable);
-        }
-    }
-
-    private void tintButton(@NonNull ImageView button, ColorStateList colorStateList) {
-        Drawable drawable = DrawableCompat.wrap(button.getDrawable());
-        DrawableCompat.setTintList(drawable, colorStateList);
-        button.setImageDrawable(drawable);
-    }
-
     private void initButtonMinus() {
         setButtonMinusImage();
 
@@ -256,6 +220,20 @@ public class ScrollableNumberPicker extends LinearLayout {
         });
     }
 
+    private void setButtonPlusImage() {
+        if (mOrientation == LinearLayout.VERTICAL) {
+            mPlusButton = (ImageView) findViewById(R.id.button_increase);
+            mPlusButton.setImageResource(upIcon);
+        } else if (mOrientation == LinearLayout.HORIZONTAL) {
+            mPlusButton = (ImageView) findViewById(R.id.button_decrease);
+            mPlusButton.setImageResource(rightIcon);
+        }
+
+        tintButton(mPlusButton, mButtonColorStateList);
+
+        setButtonLayoutParams(mPlusButton);
+    }
+
     private void setButtonMinusImage() {
         if (mOrientation == LinearLayout.VERTICAL) {
             mMinusButton = (ImageView) findViewById(R.id.button_decrease);
@@ -266,6 +244,42 @@ public class ScrollableNumberPicker extends LinearLayout {
         }
 
         tintButton(mMinusButton, mButtonColorStateList);
+
+        setButtonLayoutParams(mMinusButton);
+    }
+
+    private void setButtonLayoutParams(ImageView button) {
+        LayoutParams params = (LayoutParams) button.getLayoutParams();
+        params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        params.setMargins(0, 0, 0, 0);
+        button.setLayoutParams(params);
+    }
+
+    private void tintButton(@NonNull ImageView button, ColorStateList colorStateList) {
+        Drawable drawable = DrawableCompat.wrap(button.getDrawable());
+        DrawableCompat.setTintList(drawable, colorStateList);
+        button.setImageDrawable(drawable);
+    }
+
+    private void scaleImageViewDrawable(ImageView view, float scaleFactor) {
+        Drawable drawable = view.getDrawable();
+        int currentWidth = drawable.getIntrinsicWidth();
+        int currentHeight = drawable.getIntrinsicHeight();
+        int newWidth = (int) (currentWidth * scaleFactor);
+        int newHeight = (int) (currentHeight * scaleFactor);
+
+        if (newWidth < currentWidth && newHeight < currentHeight) {
+            int marginWidth = (currentWidth - newWidth) / 2;
+            int marginHeight = (currentHeight - newHeight) / 2;
+
+            //setBounds is not working on FireTV, that's why we use a workaround with margins
+            LayoutParams params = (LayoutParams) view.getLayoutParams();
+            params.width = newWidth;
+            params.height = newHeight;
+            params.setMargins(marginWidth, marginHeight, marginWidth, marginHeight);
+            view.setLayoutParams(params);
+        }
     }
 
     @SuppressWarnings("unused")
@@ -378,7 +392,6 @@ public class ScrollableNumberPicker extends LinearLayout {
         mListener = listener;
     }
 
-    //TODO: Refactor code-duplication
     public boolean handleKeyEvent(int keyCode, KeyEvent event) {
         int eventAction = event.getAction();
         if (eventAction == KeyEvent.ACTION_DOWN) {
