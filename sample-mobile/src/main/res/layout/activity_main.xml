@@ -30,7 +30,7 @@
         <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
             android:id="@+id/number_picker_horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_margin="10dp"
             android:background="@drawable/number_picker_bg_color"
             android:paddingEnd="8dp"
@@ -50,8 +50,8 @@
 
         <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
             android:id="@+id/number_picker_vertical_icons"
-            android:layout_width="45dp"
-            android:layout_height="100dp"
+            android:layout_width="40dp"
+            android:layout_height="95dp"
             android:layout_margin="10dp"
             android:background="@drawable/number_picker_bg_color"
             app:snp_buttonBackgroundTintSelector="@color/btn_tint_selector_main"
@@ -69,12 +69,12 @@
         <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
             android:id="@+id/number_picker_horizontal_icons"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_margin="10dp"
             app:snp_buttonBackgroundTintSelector="@color/btn_tint_selector_main"
             app:snp_buttonIconLeft="@drawable/btn_left_selector_main"
             app:snp_buttonIconRight="@drawable/btn_right_selector_main"
-            app:snp_buttonTouchScaleFactor="0.5"
+            app:snp_buttonTouchScaleFactor="0.7"
             app:snp_maxValue="1000"
             app:snp_minValue="10"
             app:snp_orientation="horizontal"
