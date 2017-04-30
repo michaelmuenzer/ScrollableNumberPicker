@@ -1,32 +1,128 @@
 ScrollableNumberPicker
 ============
-
 This view provides an user-friendly numerical input interface. It can easily be customized and is built to be used on Android-TV as well.
+
+[![Download](https://bintray.com/michael-muenzer/ScrollableNumberPicker/ScrollableNumberPicker/_latestVersion)
+[![API](https://img.shields.io/badge/API-9%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
+[![Method Count](https://img.shields.io/badge/Methods%20and%20size-core:%201707%20%7C%20deps:%2021568%20%7C%20232%20KB-e91e63.svg) ](http://www.methodscount.com/?lib=com.michaelmuenzer.android:ScrollableNumberPicker:0.1)
 
 How does it look like?
 --------
-
 ![alt tag](https://raw.github.com/michaelmuenzer/ScrollableNumberPicker/master/media/sample.gif)
 
-Download
+Getting started
 --------
-
-The library is avilable from `jcenter()`, so all you need to do is include it in your apps `build.gradle`:
+The library is available on `jcenter()`. Just add these lines in your `build.gradle`:
 
 ```groovy
 dependencies {
-          compile 'TODO'
-  }
+    compile 'com.michaelmuenzer.android:ScrollableNumberPicker:0.1'
+}
 ```
 
-Alternatively you can use `jitpack.io`:
-More info here: https://jitpack.io/#TODO
+Alternatively you can use [jitpack.io](https://jitpack.io/#michaelmuenzer/ScrollableNumberPicker)
 
+Usage
+--------
+Just include `ScrollableNumberPicker` inside our xml-layout. There are samples available for mobile and tv applications inside this repository.
+
+```xml
+<com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+    android:id="@+id/number_picker_horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>
+```
+
+You can make use of various custom attributes to define how the increment and decrement interaction should behave.
+```xml
+<LinearLayout
+    [...]
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    
+    <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+        [...]
+        app:snp_maxValue="1000"
+        app:snp_minValue="10"
+        app:snp_stepSize="5"
+        app:snp_updateInterval="100"
+        app:snp_value="10"
+        />
+</Linearlayout>
+```
+
+There as well exist attributes which let you customize the appearance of the view.
+```xml
+<com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+        [...]
+        app:snp_buttonIconLeft="@drawable/btn_left_selector_main"
+        app:snp_buttonIconRight="@drawable/btn_right_selector_main"            
+        app:snp_buttonBackgroundTintSelector="@color/white"
+        app:snp_buttonTouchScaleFactor="0.8"
+        app:snp_orientation="horizontal"
+        app:snp_valueMarginEnd="5dp"
+        app:snp_valueMarginStart="5dp"
+        />
+```
+
+You can essentially make the element look exactly like you want by using the `android:background` attribute
+```xml
+<com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+        [...]
+        android:background="@drawable/number_picker_bg_color"
+        />
+```
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="rectangle">
+
+    <solid android:color="@color/green"/>
+
+    <corners android:radius="24dp"/>
+
+    <size
+        android:width="24dp"
+        android:height="24dp"/>
+</shape>
+```
+
+If you use it on Android TV, please include the following to allow customizable D-pad support.
+
+```xml
+<com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+    android:id="@+id/number_picker_horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:nextFocusUp="@+id/number_picker_vertical"/>
+```
+
+```Java
+@Override
+public boolean onKeyDown(int keyCode, KeyEvent event) {
+    return onKey(keyCode, event);
+}
+
+
+@Override
+public boolean onKeyUp(int keyCode, KeyEvent event) {
+    return onKey(keyCode, event);
+}
+
+private boolean onKey(int keyCode, KeyEvent event) {
+    if (horizontalNumberPicker.isFocused()) {
+        return horizontalNumberPicker.handleKeyEvent(keyCode, event);
+    }
+
+    return false;
+}
+```
 
 Questions?
 --------
 If you have any questions feel free to open a github issue with a 'question' label
-
 
 License
 --------
