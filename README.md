@@ -3,7 +3,7 @@ ScrollableNumberPicker
 This view provides an user-friendly numerical input interface. It can easily be customized and is built to be used on Android-TV as well.
 
 [![Download](https://bintray.com/michael-muenzer/ScrollableNumberPicker/ScrollableNumberPicker/_latestVersion)
-[![API](https://img.shields.io/badge/API-9%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
+[![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
 [![Method Count](https://img.shields.io/badge/Methods%20and%20size-core:%201707%20%7C%20deps:%2021568%20%7C%20232%20KB-e91e63.svg) ](http://www.methodscount.com/?lib=com.michaelmuenzer.android:ScrollableNumberPicker:0.1)
 
 How does it look like?
@@ -33,7 +33,7 @@ Just include `ScrollableNumberPicker` inside our xml-layout. There are samples a
     android:layout_height="wrap_content"/>
 ```
 
-You can make use of various custom attributes to define how the increment and decrement interaction should behave.
+You can make use of various custom attributes to define how the increment and decrement interactions should behave.
 ```xml
 <LinearLayout
     [...]
@@ -51,7 +51,7 @@ You can make use of various custom attributes to define how the increment and de
 </Linearlayout>
 ```
 
-There as well exist attributes which let you customize the appearance of the view.
+There exist attributes which let you customize the general appearance of the view.
 ```xml
 <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
         [...]
@@ -73,6 +73,7 @@ You can essentially make the element look exactly like you want by using the `an
         />
 ```
 
+Drawable number_picker_bg_color:
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
@@ -88,7 +89,7 @@ You can essentially make the element look exactly like you want by using the `an
 </shape>
 ```
 
-If you use it on Android TV, please include the following to allow customizable D-pad support.
+If you use it on Android TV, please include the following to allow D-pad support.
 
 ```xml
 <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
