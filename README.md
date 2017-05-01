@@ -2,9 +2,8 @@ ScrollableNumberPicker
 ============
 This view provides an user-friendly numerical input interface. It can easily be customized and is built to be used on Android-TV as well.
 
-[![Download](https://bintray.com/michael-muenzer/ScrollableNumberPicker/ScrollableNumberPicker/_latestVersion)
+[![Download](https://api.bintray.com/packages/michaelmuenzer/ScrollableNumberPicker/ScrollableNumberPicker/images/download.svg) ](https://bintray.com/michaelmuenzer/ScrollableNumberPicker/ScrollableNumberPicker/_latestVersion)
 [![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
-[![Method Count](https://img.shields.io/badge/Methods%20and%20size-core:%201707%20%7C%20deps:%2021568%20%7C%20232%20KB-e91e63.svg) ](http://www.methodscount.com/?lib=com.michaelmuenzer.android:ScrollableNumberPicker:0.1)
 
 How does it look like?
 --------
@@ -73,7 +72,7 @@ You can essentially make the element look exactly like you want by using the `an
         />
 ```
 
-Drawable number_picker_bg_color:
+number_picker_bg_color.xml:
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
@@ -105,7 +104,6 @@ If you use it on Android TV, please include the following to allow D-pad support
 public boolean onKeyDown(int keyCode, KeyEvent event) {
     return onKey(keyCode, event);
 }
-
 
 @Override
 public boolean onKeyUp(int keyCode, KeyEvent event) {
