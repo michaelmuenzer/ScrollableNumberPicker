@@ -16,7 +16,7 @@ The library is available on `jcenter()`. Just add these lines in your `build.gra
 
 ```groovy
 dependencies {
-    compile 'com.michaelmuenzer.android:ScrollableNumberPicker:0.1'
+    compile 'com.michaelmuenzer.android:ScrollableNumberPicker:0.2'
 }
 ```
 

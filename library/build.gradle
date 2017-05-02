@@ -3,12 +3,12 @@ apply plugin: 'com.android.library'
 ext {
     PUBLISH_GROUP_ID = 'com.michaelmuenzer.android'
     PUBLISH_ARTIFACT_ID = 'ScrollableNumberPicker'
-    PUBLISH_VERSION = '0.1'
+    PUBLISH_VERSION = '0.2'
 }
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "25.0.3"
 
     lintOptions {
         disable 'RestrictedApi'
@@ -31,6 +31,7 @@ android {
 final ANDROID_SUPPORTLIB_VERSION = '25.3.1'
 
 dependencies {
+    compile "com.android.support:support-compat:${ANDROID_SUPPORTLIB_VERSION}"
     compile "com.android.support:appcompat-v7:${ANDROID_SUPPORTLIB_VERSION}"
     compile "com.android.support:support-annotations:${ANDROID_SUPPORTLIB_VERSION}"
 }
