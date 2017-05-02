@@ -2,6 +2,7 @@ ScrollableNumberPicker
 ============
 This view provides an user-friendly numerical input interface. It can easily be customized and is built to be used on Android-TV as well.
 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ScrollableNumberPicker-orange.svg?style=flat)](https://android-arsenal.com/details/1/5676)
 [![Download](https://api.bintray.com/packages/michaelmuenzer/ScrollableNumberPicker/ScrollableNumberPicker/images/download.svg) ](https://bintray.com/michaelmuenzer/ScrollableNumberPicker/ScrollableNumberPicker/_latestVersion)
 [![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
 
@@ -32,7 +33,16 @@ Just include `ScrollableNumberPicker` inside our xml-layout. There are samples a
     android:layout_height="wrap_content"/>
 ```
 
-You can make use of various custom attributes to define how the increment and decrement interactions should behave.
+If you want to change the value by scrolling you can enable and control it like this:
+```xml
+<com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
+    [...]
+    app:snp_scrollEnabled="true"
+    app:snp_updateInterval="25"
+    />
+```
+
+You can make use of various other custom attributes to define how the increment and decrement interactions should behave:
 ```xml
 <LinearLayout
     [...]
@@ -50,7 +60,7 @@ You can make use of various custom attributes to define how the increment and de
 </Linearlayout>
 ```
 
-There exist attributes which let you customize the general appearance of the view.
+There exist further attributes which let you customize the general appearance of the view:
 ```xml
 <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
         [...]
@@ -64,7 +74,7 @@ There exist attributes which let you customize the general appearance of the vie
         />
 ```
 
-You can essentially make the element look exactly like you want by using the `android:background` attribute
+You can essentially make the element look exactly like you want by using the `android:background` attribute.
 ```xml
 <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
         [...]

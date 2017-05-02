@@ -13,6 +13,7 @@
         <attr name="snp_minValue" format="integer"/>
         <attr name="snp_stepSize" format="integer"/>
         <attr name="snp_updateInterval" format="integer"/>
+        <attr name="snp_scrollEnabled" format="boolean"/>
 
         <attr name="snp_orientation">
             <enum name="horizontal" value="0"/>
