@@ -8,6 +8,11 @@
         <attr name="snp_buttonBackgroundTintSelector" format="integer"/>
         <attr name="snp_buttonTouchScaleFactor" format="float"/>
 
+        <attr name="snp_buttonPaddingLeft" format="dimension"/>
+        <attr name="snp_buttonPaddingRight" format="dimension"/>
+        <attr name="snp_buttonPaddingTop" format="dimension"/>
+        <attr name="snp_buttonPaddingBottom" format="dimension"/>
+
         <attr name="snp_value" format="integer"/>
         <attr name="snp_maxValue" format="integer"/>
         <attr name="snp_minValue" format="integer"/>

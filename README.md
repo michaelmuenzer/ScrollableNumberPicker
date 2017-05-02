@@ -71,6 +71,10 @@ There exist further attributes which let you customize the general appearance of
         app:snp_orientation="horizontal"
         app:snp_valueMarginEnd="5dp"
         app:snp_valueMarginStart="5dp"
+        app:snp_buttonPaddingBottom="8dp"
+        app:snp_buttonPaddingLeft="8dp"
+        app:snp_buttonPaddingRight="8dp"
+        app:snp_buttonPaddingTop="8dp"
         />
 ```
 

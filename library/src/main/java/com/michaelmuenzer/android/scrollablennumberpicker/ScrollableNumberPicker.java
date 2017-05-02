@@ -47,17 +47,24 @@ public class ScrollableNumberPicker extends LinearLayout {
     private int mMaxValue;
     private int mMinValue;
     private int mStepSize;
+
     private boolean mScrollEnabled;
     private int mUpdateIntervalMillis;
     private float mButtonTouchScaleFactor;
     private int mOrientation;
     private ColorStateList mButtonColorStateList;
+
     private int mValueMarginStart;
     private int mValueMarginEnd;
 
     private ImageView mMinusButton;
     private ImageView mPlusButton;
     private TextView mValueTextView;
+
+    private int mButtonPaddingLeft;
+    private int mButtonPaddingRight;
+    private int mButtonPaddingTop;
+    private int mButtonPaddingBottom;
 
     private boolean mAutoIncrement;
     private boolean mAutoDecrement;
@@ -313,6 +320,11 @@ public class ScrollableNumberPicker extends LinearLayout {
         mValueMarginStart = (int) typedArray.getDimension(R.styleable.ScrollableNumberPicker_snp_valueMarginStart, res.getDimension(R.dimen.default_value_margin_start));
         mValueMarginEnd = (int) typedArray.getDimension(R.styleable.ScrollableNumberPicker_snp_valueMarginStart, res.getDimension(R.dimen.default_value_margin_end));
 
+        mButtonPaddingLeft = (int) typedArray.getDimension(R.styleable.ScrollableNumberPicker_snp_buttonPaddingLeft, res.getDimension(R.dimen.default_button_padding_left));
+        mButtonPaddingRight = (int) typedArray.getDimension(R.styleable.ScrollableNumberPicker_snp_buttonPaddingRight, res.getDimension(R.dimen.default_button_padding_right));
+        mButtonPaddingTop = (int) typedArray.getDimension(R.styleable.ScrollableNumberPicker_snp_buttonPaddingTop, res.getDimension(R.dimen.default_button_padding_top));
+        mButtonPaddingBottom = (int) typedArray.getDimension(R.styleable.ScrollableNumberPicker_snp_buttonPaddingBottom, res.getDimension(R.dimen.default_button_padding_bottom));
+
         TypedValue outValue = new TypedValue();
         res.getValue(R.dimen.default_button_scale_factor, outValue, true);
         float defaultValue = outValue.getFloat();
@@ -522,6 +534,8 @@ public class ScrollableNumberPicker extends LinearLayout {
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         params.setMargins(0, 0, 0, 0);
         button.setLayoutParams(params);
+
+        button.setPadding(mButtonPaddingLeft, mButtonPaddingTop, mButtonPaddingRight, mButtonPaddingBottom);
     }
 
     private void tintButton(@NonNull ImageView button, ColorStateList colorStateList) {
