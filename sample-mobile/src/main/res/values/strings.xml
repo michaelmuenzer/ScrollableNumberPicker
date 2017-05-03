@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ScrollableNumberPicker</string>
+
+    <string name="msg_toast_max_value">Max value has been reached!</string>
 </resources>

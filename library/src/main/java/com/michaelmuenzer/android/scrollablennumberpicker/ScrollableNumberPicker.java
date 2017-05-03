@@ -276,7 +276,6 @@ public class ScrollableNumberPicker extends LinearLayout {
         return false;
     }
 
-
     private void init(Context context, AttributeSet attrs) {
         if (isInEditMode()) {
             return;

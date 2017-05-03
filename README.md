@@ -33,7 +33,7 @@ Just include `ScrollableNumberPicker` inside our xml-layout. There are samples a
     android:layout_height="wrap_content"/>
 ```
 
-If you want to change the value by scrolling you can enable and control it like this:
+If you want to change the value by scrolling on the view, you can enable and control speed like this:
 ```xml
 <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
     [...]
@@ -78,7 +78,7 @@ There exist further attributes which let you customize the general appearance of
         />
 ```
 
-You can essentially make the element look exactly like you want by using the `android:background` attribute.
+You can essentially make the element look exactly like you want by using the `android:background` attribute:
 ```xml
 <com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker
         [...]
@@ -102,6 +102,17 @@ number_picker_bg_color.xml:
 </shape>
 ```
 
+You can use `ScrollableNumberPickerListener` to build further processing logic around the selected number: 
+
+```Java
+numberPicker.setListener(new ScrollableNumberPickerListener() {
+    @Override
+    public void onNumberPicked(int value) {
+        // Do some magic
+    }
+});
+```
+        
 If you use it on Android TV, please include the following to allow D-pad support.
 
 ```xml
