@@ -3,7 +3,7 @@ apply plugin: 'com.android.library'
 ext {
     PUBLISH_GROUP_ID = 'com.michaelmuenzer.android'
     PUBLISH_ARTIFACT_ID = 'ScrollableNumberPicker'
-    PUBLISH_VERSION = '0.2'
+    PUBLISH_VERSION = '0.2.2'
 }
 
 android {
