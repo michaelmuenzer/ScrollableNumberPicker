@@ -17,6 +17,10 @@
         <attr name="snp_maxValue" format="integer"/>
         <attr name="snp_minValue" format="integer"/>
         <attr name="snp_stepSize" format="integer"/>
+        <attr name="snp_value_text_size" format="dimension"/>
+        <attr name="snp_value_text_color" format="color"/>
+        <attr name="snp_value_text_appearance" format="reference"/>
+
         <attr name="snp_updateInterval" format="integer"/>
         <attr name="snp_scrollEnabled" format="boolean"/>
 

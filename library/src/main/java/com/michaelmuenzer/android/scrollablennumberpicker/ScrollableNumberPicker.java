@@ -10,6 +10,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v4.widget.TextViewCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -28,6 +29,7 @@ import static android.view.KeyEvent.KEYCODE_DPAD_RIGHT;
 import static android.view.KeyEvent.KEYCODE_DPAD_UP;
 
 public class ScrollableNumberPicker extends LinearLayout {
+    private final static int INVALID_RES = -1;
     private final static float SLOWING_FACTOR = 1.25f;
     private final static int MIN_UPDATE_INTERVAL_MS = 50;
 
@@ -47,6 +49,9 @@ public class ScrollableNumberPicker extends LinearLayout {
     private int mMaxValue;
     private int mMinValue;
     private int mStepSize;
+    private float mValueTextSize;
+    private int mValueTextColor;
+    private int mValueTextAppearanceResId;
 
     private boolean mScrollEnabled;
     private int mUpdateIntervalMillis;
@@ -158,10 +163,36 @@ public class ScrollableNumberPicker extends LinearLayout {
 
     private void setValue() {
         mValueTextView.setText(String.valueOf(mValue));
-
         if (mListener != null) {
             mListener.onNumberPicked(mValue);
         }
+    }
+
+    private void initValueView() {
+        mValueTextView = (TextView) findViewById(R.id.text_value);
+
+        if (mValueTextAppearanceResId != INVALID_RES) {
+            TextViewCompat.setTextAppearance(mValueTextView, mValueTextAppearanceResId);
+        }
+
+        if (mValueTextColor != INVALID_RES) {
+            mValueTextView.setTextColor(mValueTextColor);
+        }
+
+        if (mValueTextSize != INVALID_RES) {
+            mValueTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mValueTextSize);
+        }
+
+        LinearLayout.LayoutParams layoutParams = (LayoutParams) mValueTextView.getLayoutParams();
+        if (mOrientation == HORIZONTAL) {
+            layoutParams.setMargins(mValueMarginStart, 0, mValueMarginEnd, 0);
+        } else {
+            layoutParams.setMargins(0, mValueMarginStart, 0, mValueMarginEnd);
+        }
+
+        mValueTextView.setLayoutParams(layoutParams);
+
+        setValue();
     }
 
     @SuppressWarnings("unused")
@@ -311,6 +342,12 @@ public class ScrollableNumberPicker extends LinearLayout {
         mValue = typedArray.getInt(R.styleable.ScrollableNumberPicker_snp_value,
             res.getInteger(R.integer.default_value));
 
+        mValueTextSize = typedArray.getDimension(R.styleable.ScrollableNumberPicker_snp_value_text_size,
+            INVALID_RES);
+        mValueTextColor = typedArray.getColor(R.styleable.ScrollableNumberPicker_snp_value_text_color,
+            INVALID_RES);
+        mValueTextAppearanceResId = typedArray.getResourceId(R.styleable.ScrollableNumberPicker_snp_value_text_appearance, INVALID_RES);
+
         mScrollEnabled = typedArray.getBoolean(R.styleable.ScrollableNumberPicker_snp_scrollEnabled,
             res.getBoolean(R.bool.default_scrollEnabled));
 
@@ -332,7 +369,6 @@ public class ScrollableNumberPicker extends LinearLayout {
         typedArray.recycle();
 
         initViews();
-        setValue();
 
         mAutoIncrement = false;
         mAutoDecrement = false;
@@ -341,20 +377,12 @@ public class ScrollableNumberPicker extends LinearLayout {
     }
 
     private void initViews() {
-        mValueTextView = (TextView) findViewById(R.id.text_value);
-        LinearLayout.LayoutParams layoutParams = (LayoutParams) mValueTextView.getLayoutParams();
-        if (mOrientation == HORIZONTAL) {
-            layoutParams.setMargins(mValueMarginStart, 0, mValueMarginEnd, 0);
-        } else {
-            layoutParams.setMargins(0, mValueMarginStart, 0, mValueMarginEnd);
-        }
-        mValueTextView.setLayoutParams(layoutParams);
-
         setOrientation(mOrientation);
         setGravity(Gravity.CENTER);
 
-        initButtonPlus();
-        initButtonMinus();
+        initValueView();
+        initButtonPlusView();
+        initButtonMinusView();
 
         if (mScrollEnabled) {
             setOnTouchListener(new OnTouchListener() {
@@ -431,7 +459,7 @@ public class ScrollableNumberPicker extends LinearLayout {
         }
     }
 
-    private void initButtonPlus() {
+    private void initButtonPlusView() {
         setButtonPlusImage();
 
         mPlusButton.setOnClickListener(new OnClickListener() {
@@ -465,7 +493,7 @@ public class ScrollableNumberPicker extends LinearLayout {
         });
     }
 
-    private void initButtonMinus() {
+    private void initButtonMinusView() {
         setButtonMinusImage();
 
         mMinusButton.setOnClickListener(new View.OnClickListener() {
