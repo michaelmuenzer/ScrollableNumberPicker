@@ -49,6 +49,7 @@ public class ScrollableNumberPicker extends LinearLayout {
     private int mMaxValue;
     private int mMinValue;
     private int mStepSize;
+
     private float mValueTextSize;
     private int mValueTextColor;
     private int mValueTextAppearanceResId;
@@ -168,33 +169,6 @@ public class ScrollableNumberPicker extends LinearLayout {
         }
     }
 
-    private void initValueView() {
-        mValueTextView = (TextView) findViewById(R.id.text_value);
-
-        if (mValueTextAppearanceResId != INVALID_RES) {
-            TextViewCompat.setTextAppearance(mValueTextView, mValueTextAppearanceResId);
-        }
-
-        if (mValueTextColor != INVALID_RES) {
-            mValueTextView.setTextColor(mValueTextColor);
-        }
-
-        if (mValueTextSize != INVALID_RES) {
-            mValueTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mValueTextSize);
-        }
-
-        LinearLayout.LayoutParams layoutParams = (LayoutParams) mValueTextView.getLayoutParams();
-        if (mOrientation == HORIZONTAL) {
-            layoutParams.setMargins(mValueMarginStart, 0, mValueMarginEnd, 0);
-        } else {
-            layoutParams.setMargins(0, mValueMarginStart, 0, mValueMarginEnd);
-        }
-
-        mValueTextView.setLayoutParams(layoutParams);
-
-        setValue();
-    }
-
     @SuppressWarnings("unused")
     public int getMaxValue() {
         return mMaxValue;
@@ -231,6 +205,77 @@ public class ScrollableNumberPicker extends LinearLayout {
     @SuppressWarnings("unused")
     public void setStepSize(int stepSize) {
         mStepSize = stepSize;
+    }
+
+    @SuppressWarnings("unused")
+    public float getValueTextSize() {
+        return mValueTextSize;
+    }
+
+    @SuppressWarnings("unused")
+    public void setValueTextSize(float valueTextSize) {
+        mValueTextSize = valueTextSize;
+        mValueTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mValueTextSize);
+    }
+
+    @SuppressWarnings("unused")
+    public int getValueTextColor() {
+        return mValueTextColor;
+    }
+
+    @SuppressWarnings("unused")
+    public void setValueTextColor(int valueTextColor) {
+        mValueTextColor = valueTextColor;
+        mValueTextView.setTextColor(mValueTextColor);
+    }
+
+    @SuppressWarnings("unused")
+    public void setScrollEnabled(boolean scrollEnabled) {
+        mScrollEnabled = scrollEnabled;
+    }
+
+    @SuppressWarnings("unused")
+    public int getButtonPaddingLeft() {
+        return mButtonPaddingLeft;
+    }
+
+    @SuppressWarnings("unused")
+    public void setButtonPaddingLeft(int buttonPaddingLeft) {
+        mButtonPaddingLeft = buttonPaddingLeft;
+        setPlusMinusButtonPaddings();
+    }
+
+    @SuppressWarnings("unused")
+    public int getButtonPaddingRight() {
+        return mButtonPaddingRight;
+    }
+
+    @SuppressWarnings("unused")
+    public void setButtonPaddingRight(int buttonPaddingRight) {
+        mButtonPaddingRight = buttonPaddingRight;
+        setPlusMinusButtonPaddings();
+    }
+
+    @SuppressWarnings("unused")
+    public int getButtonPaddingTop() {
+        return mButtonPaddingTop;
+    }
+
+    @SuppressWarnings("unused")
+    public void setButtonPaddingTop(int buttonPaddingTop) {
+        mButtonPaddingTop = buttonPaddingTop;
+        setPlusMinusButtonPaddings();
+    }
+
+    @SuppressWarnings("unused")
+    public int getButtonPaddingBottom() {
+        return mButtonPaddingBottom;
+    }
+
+    @SuppressWarnings("unused")
+    public void setButtonPaddingBottom(int buttonPaddingBottom) {
+        mButtonPaddingBottom = buttonPaddingBottom;
+        setPlusMinusButtonPaddings();
     }
 
     @SuppressWarnings("unused")
@@ -345,7 +390,7 @@ public class ScrollableNumberPicker extends LinearLayout {
         mValueTextSize = typedArray.getDimension(R.styleable.ScrollableNumberPicker_snp_value_text_size,
             INVALID_RES);
         mValueTextColor = typedArray.getColor(R.styleable.ScrollableNumberPicker_snp_value_text_color,
-            INVALID_RES);
+            0);
         mValueTextAppearanceResId = typedArray.getResourceId(R.styleable.ScrollableNumberPicker_snp_value_text_appearance, INVALID_RES);
 
         mScrollEnabled = typedArray.getBoolean(R.styleable.ScrollableNumberPicker_snp_scrollEnabled,
@@ -459,6 +504,33 @@ public class ScrollableNumberPicker extends LinearLayout {
         }
     }
 
+    private void initValueView() {
+        mValueTextView = (TextView) findViewById(R.id.text_value);
+
+        if (mValueTextAppearanceResId != INVALID_RES) {
+            TextViewCompat.setTextAppearance(mValueTextView, mValueTextAppearanceResId);
+        }
+
+        if (mValueTextColor != 0) {
+            mValueTextView.setTextColor(mValueTextColor);
+        }
+
+        if (mValueTextSize != INVALID_RES) {
+            mValueTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mValueTextSize);
+        }
+
+        LinearLayout.LayoutParams layoutParams = (LayoutParams) mValueTextView.getLayoutParams();
+        if (mOrientation == HORIZONTAL) {
+            layoutParams.setMargins(mValueMarginStart, 0, mValueMarginEnd, 0);
+        } else {
+            layoutParams.setMargins(0, mValueMarginStart, 0, mValueMarginEnd);
+        }
+
+        mValueTextView.setLayoutParams(layoutParams);
+
+        setValue();
+    }
+
     private void initButtonPlusView() {
         setButtonPlusImage();
 
@@ -562,6 +634,15 @@ public class ScrollableNumberPicker extends LinearLayout {
         params.setMargins(0, 0, 0, 0);
         button.setLayoutParams(params);
 
+        setButtonPaddings(button);
+    }
+
+    private void setPlusMinusButtonPaddings() {
+        setButtonPaddings(mMinusButton);
+        setButtonPaddings(mPlusButton);
+    }
+
+    private void setButtonPaddings(ImageView button) {
         button.setPadding(mButtonPaddingLeft, mButtonPaddingTop, mButtonPaddingRight, mButtonPaddingBottom);
     }
 
