@@ -6,11 +6,11 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v4.widget.TextViewCompat;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.widget.TextViewCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -357,8 +357,7 @@ public class ScrollableNumberPicker extends LinearLayout {
             return;
         }
 
-        LayoutInflater layoutInflater =
-            (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         layoutInflater.inflate(R.layout.number_picker, this);
 
         TypedArray typedArray =
@@ -505,7 +504,7 @@ public class ScrollableNumberPicker extends LinearLayout {
     }
 
     private void initValueView() {
-        mValueTextView = (TextView) findViewById(R.id.text_value);
+        mValueTextView = findViewById(R.id.text_value);
 
         if (mValueTextAppearanceResId != INVALID_RES) {
             TextViewCompat.setTextAppearance(mValueTextView, mValueTextAppearanceResId);

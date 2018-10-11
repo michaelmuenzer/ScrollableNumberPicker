@@ -3,22 +3,21 @@ apply plugin: 'com.android.library'
 ext {
     PUBLISH_GROUP_ID = 'com.michaelmuenzer.android'
     PUBLISH_ARTIFACT_ID = 'ScrollableNumberPicker'
-    PUBLISH_VERSION = '0.2.2'
+    PUBLISH_VERSION = '0.2.3'
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 28
 
     lintOptions {
         disable 'RestrictedApi'
     }
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 2
+        versionName "1.0.1"
     }
     buildTypes {
         release {
@@ -28,12 +27,10 @@ android {
     }
 }
 
-final ANDROID_SUPPORTLIB_VERSION = '25.3.1'
-
 dependencies {
-    compile "com.android.support:support-compat:${ANDROID_SUPPORTLIB_VERSION}"
-    compile "com.android.support:appcompat-v7:${ANDROID_SUPPORTLIB_VERSION}"
-    compile "com.android.support:support-annotations:${ANDROID_SUPPORTLIB_VERSION}"
+    compile 'androidx.core:core:1.0.0'
+    compile 'androidx.appcompat:appcompat:1.0.0'
+    compile 'androidx.annotation:annotation:1.0.0'
 }
 
 apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
