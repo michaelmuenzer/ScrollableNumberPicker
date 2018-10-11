@@ -25,6 +25,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    libraryVariants.all { variant ->
+        variant.outputs.all { output ->
+            if (outputFile != null && outputFileName.endsWith('.aar')) {
+                //outputFileName = "${archivesBaseName}-${version}.aar"
+                outputFileName = "scrollable-number-picker.aar"
+            }
+        }
+    }
 }
 
 dependencies {
