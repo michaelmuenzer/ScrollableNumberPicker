@@ -646,7 +646,7 @@ public class ScrollableNumberPicker extends LinearLayout {
     }
 
     private void tintButton(@NonNull ImageView button, ColorStateList colorStateList) {
-        Drawable drawable = DrawableCompat.wrap(button.getDrawable());
+        Drawable drawable = DrawableCompat.wrap(button.getDrawable().mutate());
         DrawableCompat.setTintList(drawable, colorStateList);
         button.setImageDrawable(drawable);
     }
