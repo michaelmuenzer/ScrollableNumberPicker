@@ -1,6 +1,5 @@
 package com.michaelmuenzer.android.scrollablennumberpicker;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -435,7 +434,6 @@ public class ScrollableNumberPicker extends LinearLayout {
                 private float lastY = 0.0f;
                 private final int scrollOffsetPx = getResources().getDimensionPixelSize(R.dimen.default_scroll_offset);
 
-                @SuppressLint("ClickableViewAccessibility")
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     float currentX = motionEvent.getX();
@@ -532,7 +530,6 @@ public class ScrollableNumberPicker extends LinearLayout {
         setValue();
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     private void initButtonPlusView() {
         setButtonPlusImage();
 
@@ -558,14 +555,15 @@ public class ScrollableNumberPicker extends LinearLayout {
                     if (mAutoIncrement) {
                         mAutoIncrement = false;
                     }
+
                     setButtonPlusImage();
                 }
+
                 return false;
             }
         });
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     private void initButtonMinusView() {
         setButtonMinusImage();
 
@@ -602,10 +600,10 @@ public class ScrollableNumberPicker extends LinearLayout {
 
     private void setButtonPlusImage() {
         if (mOrientation == LinearLayout.VERTICAL) {
-            mPlusButton = findViewById(R.id.button_increase);
+            mPlusButton = (ImageView) findViewById(R.id.button_increase);
             mPlusButton.setImageResource(upIcon);
         } else if (mOrientation == LinearLayout.HORIZONTAL) {
-            mPlusButton = findViewById(R.id.button_decrease);
+            mPlusButton = (ImageView) findViewById(R.id.button_decrease);
             mPlusButton.setImageResource(rightIcon);
         }
 
@@ -616,10 +614,10 @@ public class ScrollableNumberPicker extends LinearLayout {
 
     private void setButtonMinusImage() {
         if (mOrientation == LinearLayout.VERTICAL) {
-            mMinusButton = findViewById(R.id.button_decrease);
+            mMinusButton = (ImageView) findViewById(R.id.button_decrease);
             mMinusButton.setImageResource(downIcon);
         } else if (mOrientation == LinearLayout.HORIZONTAL) {
-            mMinusButton = findViewById(R.id.button_increase);
+            mMinusButton = (ImageView) findViewById(R.id.button_increase);
             mMinusButton.setImageResource(leftIcon);
         }
 
@@ -648,7 +646,7 @@ public class ScrollableNumberPicker extends LinearLayout {
     }
 
     private void tintButton(@NonNull ImageView button, ColorStateList colorStateList) {
-        Drawable drawable = DrawableCompat.wrap(button.getDrawable().mutate());
+        Drawable drawable = DrawableCompat.wrap(button.getDrawable());
         DrawableCompat.setTintList(drawable, colorStateList);
         button.setImageDrawable(drawable);
     }
@@ -698,8 +696,8 @@ public class ScrollableNumberPicker extends LinearLayout {
     }
 
     private class RepeatSlowingRunnable implements Runnable {
-        long mUpdateIntervalMillis;
-        int mNumberOfLeftRuns;
+        long mUpdateIntervalMillis = 0;
+        int mNumberOfLeftRuns = 0;
 
         RepeatSlowingRunnable(int numberOfLeftRuns, long millis) {
             mUpdateIntervalMillis = millis;
