@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-    compile 'androidx.appcompat:appcompat:1.0.0'
-    compile 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
-    compile project(path: ':library')
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+    implementation project(path: ':library')
 }

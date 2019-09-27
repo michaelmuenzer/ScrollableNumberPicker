@@ -28,9 +28,9 @@ android {
 }
 
 dependencies {
-    compile 'androidx.core:core:1.0.0'
-    compile 'androidx.appcompat:appcompat:1.0.0'
-    compile 'androidx.annotation:annotation:1.0.0'
+    implementation 'androidx.core:core:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.annotation:annotation:1.0.0'
 }
 
 apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'

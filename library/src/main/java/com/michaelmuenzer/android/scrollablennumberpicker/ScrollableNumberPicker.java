@@ -1,16 +1,12 @@
 package com.michaelmuenzer.android.scrollablennumberpicker;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.core.widget.TextViewCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -22,6 +18,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.widget.TextViewCompat;
 
 import static android.view.KeyEvent.KEYCODE_DPAD_DOWN;
 import static android.view.KeyEvent.KEYCODE_DPAD_LEFT;
@@ -288,7 +290,6 @@ public class ScrollableNumberPicker extends LinearLayout {
         if (intervalMillis < MIN_UPDATE_INTERVAL_MS) {
             intervalMillis = MIN_UPDATE_INTERVAL_MS;
         }
-
         mUpdateIntervalMillis = intervalMillis;
     }
 
@@ -361,7 +362,7 @@ public class ScrollableNumberPicker extends LinearLayout {
         layoutInflater.inflate(R.layout.number_picker, this);
 
         TypedArray typedArray =
-            context.obtainStyledAttributes(attrs, R.styleable.ScrollableNumberPicker);
+                context.obtainStyledAttributes(attrs, R.styleable.ScrollableNumberPicker);
         Resources res = getResources();
 
         downIcon = typedArray.getResourceId(R.styleable.ScrollableNumberPicker_snp_buttonIconDown, downIcon);
@@ -370,30 +371,30 @@ public class ScrollableNumberPicker extends LinearLayout {
         rightIcon = typedArray.getResourceId(R.styleable.ScrollableNumberPicker_snp_buttonIconRight, rightIcon);
 
         mMinValue = typedArray.getInt(R.styleable.ScrollableNumberPicker_snp_minValue,
-            res.getInteger(R.integer.default_minValue));
+                res.getInteger(R.integer.default_minValue));
         mMaxValue = typedArray.getInt(R.styleable.ScrollableNumberPicker_snp_maxValue,
-            res.getInteger(R.integer.default_maxValue));
+                res.getInteger(R.integer.default_maxValue));
 
         mStepSize = typedArray.getInt(R.styleable.ScrollableNumberPicker_snp_stepSize,
-            res.getInteger(R.integer.default_stepSize));
+                res.getInteger(R.integer.default_stepSize));
 
         mUpdateIntervalMillis = typedArray.getInt(R.styleable.ScrollableNumberPicker_snp_updateInterval,
-            res.getInteger(R.integer.default_updateInterval));
+                res.getInteger(R.integer.default_updateInterval));
 
         mOrientation = typedArray.getInt(R.styleable.ScrollableNumberPicker_snp_orientation,
-            LinearLayout.HORIZONTAL);
+                LinearLayout.HORIZONTAL);
 
         mValue = typedArray.getInt(R.styleable.ScrollableNumberPicker_snp_value,
-            res.getInteger(R.integer.default_value));
+                res.getInteger(R.integer.default_value));
 
         mValueTextSize = typedArray.getDimension(R.styleable.ScrollableNumberPicker_snp_value_text_size,
-            INVALID_RES);
+                INVALID_RES);
         mValueTextColor = typedArray.getColor(R.styleable.ScrollableNumberPicker_snp_value_text_color,
-            0);
+                0);
         mValueTextAppearanceResId = typedArray.getResourceId(R.styleable.ScrollableNumberPicker_snp_value_text_appearance, INVALID_RES);
 
         mScrollEnabled = typedArray.getBoolean(R.styleable.ScrollableNumberPicker_snp_scrollEnabled,
-            res.getBoolean(R.bool.default_scrollEnabled));
+                res.getBoolean(R.bool.default_scrollEnabled));
 
         mButtonColorStateList = ContextCompat.getColorStateList(context, typedArray.getResourceId(R.styleable.ScrollableNumberPicker_snp_buttonBackgroundTintSelector, R.color.btn_tint_selector));
 
@@ -434,6 +435,7 @@ public class ScrollableNumberPicker extends LinearLayout {
                 private float lastY = 0.0f;
                 private final int scrollOffsetPx = getResources().getDimensionPixelSize(R.dimen.default_scroll_offset);
 
+                @SuppressLint("ClickableViewAccessibility")
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     float currentX = motionEvent.getX();
@@ -530,6 +532,7 @@ public class ScrollableNumberPicker extends LinearLayout {
         setValue();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void initButtonPlusView() {
         setButtonPlusImage();
 
@@ -555,15 +558,14 @@ public class ScrollableNumberPicker extends LinearLayout {
                     if (mAutoIncrement) {
                         mAutoIncrement = false;
                     }
-
                     setButtonPlusImage();
                 }
-
                 return false;
             }
         });
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void initButtonMinusView() {
         setButtonMinusImage();
 
@@ -589,10 +591,8 @@ public class ScrollableNumberPicker extends LinearLayout {
                     if (mAutoDecrement) {
                         mAutoDecrement = false;
                     }
-
                     setButtonMinusImage();
                 }
-
                 return false;
             }
         });
@@ -600,10 +600,10 @@ public class ScrollableNumberPicker extends LinearLayout {
 
     private void setButtonPlusImage() {
         if (mOrientation == LinearLayout.VERTICAL) {
-            mPlusButton = (ImageView) findViewById(R.id.button_increase);
+            mPlusButton = findViewById(R.id.button_increase);
             mPlusButton.setImageResource(upIcon);
         } else if (mOrientation == LinearLayout.HORIZONTAL) {
-            mPlusButton = (ImageView) findViewById(R.id.button_decrease);
+            mPlusButton = findViewById(R.id.button_decrease);
             mPlusButton.setImageResource(rightIcon);
         }
 
@@ -614,10 +614,10 @@ public class ScrollableNumberPicker extends LinearLayout {
 
     private void setButtonMinusImage() {
         if (mOrientation == LinearLayout.VERTICAL) {
-            mMinusButton = (ImageView) findViewById(R.id.button_decrease);
+            mMinusButton = findViewById(R.id.button_decrease);
             mMinusButton.setImageResource(downIcon);
         } else if (mOrientation == LinearLayout.HORIZONTAL) {
-            mMinusButton = (ImageView) findViewById(R.id.button_increase);
+            mMinusButton = findViewById(R.id.button_increase);
             mMinusButton.setImageResource(leftIcon);
         }
 
@@ -646,9 +646,13 @@ public class ScrollableNumberPicker extends LinearLayout {
     }
 
     private void tintButton(@NonNull ImageView button, ColorStateList colorStateList) {
-        Drawable drawable = DrawableCompat.wrap(button.getDrawable().mutate());
-        DrawableCompat.setTintList(drawable, colorStateList);
-        button.setImageDrawable(drawable);
+//        Drawable drawable = DrawableCompat.wrap(button.getDrawable().mutate());
+//        DrawableCompat.setTintList(drawable, colorStateList);
+//        button.setImageDrawable(drawable);
+
+        TypedValue outValue = new TypedValue();
+        getContext().getTheme().resolveAttribute(R.attr.selectableItemBackgroundBorderless, outValue, true);
+        button.setBackground(ContextCompat.getDrawable(getContext(), outValue.resourceId));
     }
 
     private void scaleImageViewDrawable(ImageView view, float scaleFactor) {
@@ -696,8 +700,8 @@ public class ScrollableNumberPicker extends LinearLayout {
     }
 
     private class RepeatSlowingRunnable implements Runnable {
-        long mUpdateIntervalMillis = 0;
-        int mNumberOfLeftRuns = 0;
+        long mUpdateIntervalMillis;
+        int mNumberOfLeftRuns;
 
         RepeatSlowingRunnable(int numberOfLeftRuns, long millis) {
             mUpdateIntervalMillis = millis;
