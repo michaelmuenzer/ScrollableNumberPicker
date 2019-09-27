@@ -1,11 +1,12 @@
 package com.michaelmuenzer.android.scrollablenumberpicker.sample;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker;
 import com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPickerListener;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final ScrollableNumberPicker verticalNumberPicker = (ScrollableNumberPicker) findViewById(R.id.number_picker_vertical);
+        final ScrollableNumberPicker verticalNumberPicker = findViewById(R.id.number_picker_vertical);
         verticalNumberPicker.setListener(new ScrollableNumberPickerListener() {
             @Override
             public void onNumberPicked(int value) {
